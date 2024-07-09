@@ -13,3 +13,11 @@ vim.api.nvim_set_keymap(
 	'<cmd>lua require("core.helpers").create_dir()<CR>',
 	{ noremap = true, silent = true }
 )
+
+-- hop
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>b",
+	'<cmd>lua require("core.helpers").hop()<CR>',
+	{ noremap = true, silent = true }
+)

@@ -20,4 +20,17 @@ function M.create_dir()
 	end)
 end
 
+function M.hop()
+	vim.cmd("w")
+
+	-- Prompt for the file path
+	vim.fn.inputsave()
+	local input = vim.fn.input("Hopping file: ", vim.fn.getcwd() .. "/")
+	vim.fn.inputrestore()
+
+	if input and input ~= "" then
+		vim.cmd("edit " .. vim.fn.fnameescape(input))
+	end
+end
+
 return M
