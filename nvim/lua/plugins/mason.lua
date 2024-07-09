@@ -14,6 +14,7 @@ return {
 				"lua_ls",
 				"pyright",
 				"rust_analyzer",
+				"gopls",
 			},
 			automatic_installation = true,
 		})
