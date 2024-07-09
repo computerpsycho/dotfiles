@@ -1,0 +1,24 @@
+[memory]
+label= mem: 
+interval=10
+command=$SCRIPT_DIR/memory
+
+[cpu_usage]
+label= cpu: 
+interval=10
+command=$SCRIPT_DIR/cpu_usage 
+
+
+[batterybar]
+command=$SCRIPT_DIR/batterybar
+label= bat:
+interval=5
+markup=pango
+min_width=bat: ■■■■■
+
+[time]
+interval=1
+STRFTIME_FORMAT=%Y-%m-%d %R
+TZONES=$DEFAULT_TZ,Brazil/East,Australia/Brisbane,Asia/Calcutta
+TZ_LABELS=,Brazil,AU,Hyderabad
+command=$SCRIPT_DIR/time
