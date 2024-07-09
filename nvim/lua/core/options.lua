@@ -1,5 +1,7 @@
 local opt = vim.opt
 
+vim.g.mapleader = " "
+
 -- vim.opt.fillchars = { eob = " " }
 vim.opt.listchars = { tab = "  ", trail = "·", extends = ">", precedes = "<" }
 vim.opt.tabstop = 4
