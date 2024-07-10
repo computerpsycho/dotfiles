@@ -1,17 +1,26 @@
+[disk]
+command=$SCRIPT_DIR/disk
+LABEL=disk (free): 
+interval=30
+
 [memory]
-label= mem: 
+label=mem: 
 interval=10
 command=$SCRIPT_DIR/memory
 
 [cpu_usage]
-label= cpu: 
+label=cpu: 
 interval=10
-command=$SCRIPT_DIR/cpu_usage 
+command=$SCRIPT_DIR/cpu_usage
 
+[iface]
+label=ipv4:
+command=$SCRIPT_DIR/iface
+interval=10
 
 [batterybar]
 command=$SCRIPT_DIR/batterybar
-label= bat:
+label=bat: 
 interval=5
 markup=pango
 min_width=bat: ■■■■■
