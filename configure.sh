@@ -3,10 +3,10 @@ CONFIG_PATH="${CONFIG_PATH:-$HOME/.config}"
 
 echo "Updating dotfiles"
 
-install helix/config.toml "$CONFIG_PATH/helix/config.toml" 
-install i3/config "$CONFIG_PATH/i3/config"
+install sway/config "$CONFIG_PATH/sway/config"
+install wofi/style.css "$CONFIG_PATH/wofi/style.css"
+install foot/foot.ini "$CONFIG_PATH/foot/foot.ini"
 install fish/config.fish "$CONFIG_PATH/fish/config.fish"
-install kitty/kitty.conf "$CONFIG_PATH/kitty/kitty.conf"
 mkdir -p "$CONFIG_PATH/nvim"
 cp -r nvim/* "$CONFIG_PATH/nvim"
 mkdir -p "$CONFIG_PATH/i3blocks"
