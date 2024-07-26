@@ -21,3 +21,11 @@ vim.api.nvim_set_keymap(
 	'<cmd>lua require("core.helpers").hop()<CR>',
 	{ noremap = true, silent = true }
 )
+
+-- clipboard
+vim.api.nvim_set_keymap(
+	"v",
+	"<leader>,",
+	'"*y',
+	{ noremap = true }
+)
