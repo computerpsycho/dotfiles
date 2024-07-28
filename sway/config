@@ -221,5 +221,7 @@ bar {
     status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks # TODO: configure i3block
 }
 
+exec swaymsg "workspace 1; exec mullvad-vpn"
+
 include /etc/sway/config.d/*
 
