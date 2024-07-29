@@ -4,7 +4,7 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-font pango:Iosevka 15
+font pango:Iosevka 18
 
 ### Variables
 #
