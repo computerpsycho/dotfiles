@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+# Automated script to get a functioning system.
+
+maysudo=$(command -v sudo || command -v doas || true)
+pacman=$(command -v pacman || true)
+paru=$(command -v paru || true)
+
+if [[ -n $pacman ]]; then
+	pkgs=(
+		# Git
+		git
+		# Build tools
+		base-devel
+		meson
+		rust
+		# Commonly used tools
+		curl
+		wget
+
+		# Sway
+		sway
+		swaybg
+		swayimg
+		wayland-protocols
+		# Shell
+		fish
+		# Status bar
+		i3blocks
+		# App launcher for sway
+		wofi
+		# Fast terminal emulator for wayland
+		foot
+		# Browser
+		firefox
+		# Notepad
+		leafpad
+		# Better ls
+		exa
+		# i3blocks script dependencies
+		acpi
+		sysstat
+		# Video player
+		vlc
+	)
+	$maysudo "$pacman" -S --needed --noconfirm "${pkgs[@]}"
+
+	# Display Manager (GDM)
+	read -p "--> Install Display Manager GDM? (y/n): " answer
+	if [[ $answer =~ ^[Yy]$ ]]; then
+		$maysudo "$pacman" -S --needed --noconfirm gdm
+		echo "Enabling GDM at boottime"
+		$maysudo systemctl enable gdm
+	fi
+
+	# Install paru (for AUR packages)
+	if [[ -z $paru ]]; then
+		git clone https://aur.archlinux.org/paru.git ~/paru
+		cd ~/paru
+		makepkg -si
+		cd ..
+
+		# Clean up
+		echo "Cleaning up"
+		rm -rf ~/paru
+	else
+		echo "--> Paru is already installed."
+	fi
+
+	audio_pkgs=(
+		pipewire
+		pipewire-jack
+		pipewire-audio
+		pipewire-alsa
+		pipewire-pulse
+		sof-firmware # Should be installed when bootstrapping the system aka pacstrap.
+		wireplumber
+		pavucontrol # Manage audio devices
+	)
+
+	read -p "--> Install pipewire & enable pipewire services? (y/n): " answer
+	if [[ $answer =~ ^[Yy]$ ]]; then
+		$maysudo "$pacman" -S --needed --noconfirm "${audio_pkgs[@]}"
+
+		echo "--> Enabling pipewire services"
+		systemctl --user enable pipewire.service
+		systemctl --user enable pipewire-pulse.service
+		systemctl --user enable wireplumber
+	fi
+
+	read -p "--> Start pipewire services without rebooting? (y/n): " answer
+	if [[ $answer =~ ^[Yy]$ ]]; then
+		echo "--> Starting pipewire services"
+		systemctl --user start pipewire.service
+		systemctl --user start pipewire-pulse.service
+		systemctl --user start wireplumber
+	fi
+
+	bluetooth_pkgs=(
+		bluez
+		bluez-utils
+		blueman
+	)
+
+	read -p "--> Install bluetooth & enable bluetooth service? (y/n): " answer
+	if [[ $answer =~ ^[Yy]$ ]]; then
+		echo "--> Enabling bluetooth"
+		$maysudo systemctl enable bluetooth.service
+		$maysudo systemctl start bluetooth.service
+	fi
+
+	aur_pkgs=(
+		mullvad-vpn-bin
+		lazygit
+		neovim
+		ttf-iosevka
+	)
+
+	$maysudo "$paru" -S --needed --noconfirm "${aur_pkgs[@]}"
+
+	echo "--> Placing dummy config files to avoid errors"
+	mkdir -p ~/.config/sway/ && cp /etc/sway/config ~/.config/sway
+	mkdir -p ~/.config/foot && touch ~/.config/foot/foot.ini
+	mkdir -p ~/.config/fish && touch ~/.config/fish/config.fish
+	mkdir -p ~/.config/wofi && touch ~/.config/wofi/style.css
+	mkdir -p ~/Downloads/Pictures
+
+	echo "Downloading sample wallpaper"
+	wget -O ~/Downloads/Pictures/bg02.jpg "https://www.pixelstalk.net/wp-content/uploads/images1/Arch-hero-wallpaper-free.png"
+
+	read -p "--> Import configuration files? (y/n) " answer
+	if [[ $answer =~ ^[Yy]$ ]]; then
+		./configure
+	fi
+	
+	echo "--> Update"
+	$maysudo "$pacman" -Syu
+	exit 0
+fi

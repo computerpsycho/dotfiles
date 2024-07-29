@@ -13,3 +13,8 @@ set -U fish_prompt_pwd_dir_length 0 # show full path
 alias v nvim
 alias hx helix # arch issue (conflicting packages)
 alias lg lazygit
+
+function ls
+    exa
+end
+
