@@ -13,6 +13,11 @@ label=cpu:
 interval=10
 command=$SCRIPT_DIR/cpu_usage
 
+[mullvad]
+label=vpn:
+command=$SCRIPT_DIR/mullvad-status
+interval=10
+
 [iface]
 label=ipv4:
 command=$SCRIPT_DIR/iface
