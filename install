@@ -5,81 +5,86 @@ maysudo=$(command -v sudo || command -v doas || true)
 pacman=$(command -v pacman || true)
 paru=$(command -v paru || true)
 
+check_install() {
+	local pkg=$1
+	if ! pacman -Qq $pkg &>/dev/null; then
+		echo "Error: Failed to install $pkg"
+		exit 1
+	fi
+}
+
 if [[ -n $pacman ]]; then
 	pkgs=(
-		# Git
 		git
-		# Build tools
 		base-devel
 		meson
 		rust
-		# Commonly used tools
 		curl
 		wget
-
-		# Sway
 		sway
 		swaybg
 		swayimg
 		wayland-protocols
-		# Shell
 		fish
-		# Status bar
 		i3blocks
-		# App launcher for sway
 		wofi
-		# Fast terminal emulator for wayland
 		foot
-		# Browser
 		firefox
-		# Notepad
 		leafpad
-		# Better ls
 		exa
-		# i3blocks script dependencies
 		acpi
 		sysstat
-		# Video player
 		vlc
 	)
+
+	echo "--> Installing base packages"
 	$maysudo "$pacman" -S --needed --noconfirm "${pkgs[@]}"
+	for pkg in "${pkgs[@]}"; do
+		check_install $pkg
+	done
 
 	# Display Manager (GDM)
 	read -p "--> Install Display Manager GDM? (y/n): " answer
 	if [[ $answer =~ ^[Yy]$ ]]; then
+		echo "--> Installing GDM"
 		$maysudo "$pacman" -S --needed --noconfirm gdm
-		echo "Enabling GDM at boottime"
+		check_install gdm
+		echo "Enabling GDM at boot time"
 		$maysudo systemctl enable gdm
 	fi
 
 	# Install paru (for AUR packages)
 	if [[ -z $paru ]]; then
+		echo "--> Installing paru"
 		git clone https://aur.archlinux.org/paru.git ~/paru
 		cd ~/paru
 		makepkg -si
 		cd ..
-
 		# Clean up
 		echo "Cleaning up"
 		rm -rf ~/paru
+		paru=$(command -v paru)
 	else
 		echo "--> Paru is already installed."
 	fi
 
 	audio_pkgs=(
 		pipewire
-		pipewire-jack
 		pipewire-audio
 		pipewire-alsa
 		pipewire-pulse
-		sof-firmware # Should be installed when bootstrapping the system aka pacstrap.
+		sof-firmware
 		wireplumber
-		pavucontrol # Manage audio devices
+		pavucontrol
 	)
 
 	read -p "--> Install pipewire & enable pipewire services? (y/n): " answer
 	if [[ $answer =~ ^[Yy]$ ]]; then
+		echo "--> Installing pipewire packages"
 		$maysudo "$pacman" -S --needed --noconfirm "${audio_pkgs[@]}"
+		for pkg in "${audio_pkgs[@]}"; do
+			check_install $pkg
+		done
 
 		echo "--> Enabling pipewire services"
 		systemctl --user enable pipewire.service
@@ -103,6 +108,12 @@ if [[ -n $pacman ]]; then
 
 	read -p "--> Install bluetooth & enable bluetooth service? (y/n): " answer
 	if [[ $answer =~ ^[Yy]$ ]]; then
+		echo "--> Installing bluetooth packages"
+		$maysudo "$pacman" -S --needed --noconfirm "${bluetooth_pkgs[@]}"
+		for pkg in "${bluetooth_pkgs[@]}"; do
+			check_install $pkg
+		done
+
 		echo "--> Enabling bluetooth"
 		$maysudo systemctl enable bluetooth.service
 		$maysudo systemctl start bluetooth.service
@@ -115,7 +126,11 @@ if [[ -n $pacman ]]; then
 		ttf-iosevka
 	)
 
-	$maysudo "$paru" -S --needed --noconfirm "${aur_pkgs[@]}"
+	echo "--> Installing AUR packages"
+	"$paru" -S --needed --noconfirm "${aur_pkgs[@]}"
+	for pkg in "${aur_pkgs[@]}"; do
+		check_install $pkg
+	done
 
 	echo "--> Placing dummy config files to avoid errors"
 	mkdir -p ~/.config/sway/ && cp /etc/sway/config ~/.config/sway
@@ -136,7 +151,7 @@ if [[ -n $pacman ]]; then
 	if [[ $answer =~ ^[Yy]$ ]]; then
 		./configure
 	fi
-	
+
 	echo "--> Update"
 	$maysudo "$pacman" -Syu
 	exit 0
