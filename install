@@ -35,6 +35,7 @@ if [[ -n $pacman ]]; then
 		acpi
 		sysstat
 		vlc
+		noto-fonts-emoji
 	)
 
 	echo "--> Installing base packages"
