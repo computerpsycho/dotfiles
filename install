@@ -127,7 +127,12 @@ if [[ -n $pacman ]]; then
 	echo "Downloading sample wallpaper"
 	wget -O ~/Downloads/Pictures/bg02.jpg "https://www.pixelstalk.net/wp-content/uploads/images1/Arch-hero-wallpaper-free.png"
 
-	read -p "--> Import configuration files? (y/n) " answer
+	read -p "--> Change shell to fish? (y/n): " answer
+	if [[ $answer =~ ^[Yy]$ ]]; then
+		chsh -s $(which fish)
+	fi
+
+	read -p "--> Import configuration files? (y/n): " answer
 	if [[ $answer =~ ^[Yy]$ ]]; then
 		./configure
 	fi
