@@ -36,6 +36,7 @@ if [[ -n $pacman ]]; then
 		sysstat
 		vlc
 		noto-fonts-emoji
+		ttf-iosevka-nerd
 	)
 
 	echo "--> Installing base packages"
@@ -124,7 +125,6 @@ if [[ -n $pacman ]]; then
 		mullvad-vpn-bin
 		lazygit
 		neovim
-		ttf-iosevka
 	)
 
 	echo "--> Installing AUR packages"
