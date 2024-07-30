@@ -11,6 +11,11 @@ return {
 
 		mason_lspconfig.setup({
 			ensure_installed = {
+				"tsserver",
+				"eslint",
+				"html",
+				"cssls",
+				"jsonls",
 				"lua_ls",
 				"pyright",
 				"rust_analyzer",
