@@ -6,7 +6,7 @@ set -gx TERMINAL kitty
 set PATH $PATH /home/vuax/.local/bin
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
-set -gx PATH $PATH "~/.config/emacs/bin"
+set -gx PATH $PATH ~/.config/emacs/bin
 
 set fish_greeting
 set -U fish_prompt_pwd_dir_length 0 # show full path

@@ -1,8 +1,9 @@
 return {
     "NeogitOrg/neogit",
+    keys = {
+        { "<leader>ng", "<cmd>Neogit<cr>", desc = "Neogit" }
+    },
     config = function()
-        local neogit = require("neogit")
-        neogit.setup()
+        require("neogit").setup({})
     end,
 }
-
