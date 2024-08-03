@@ -23,14 +23,9 @@ vim.api.nvim_set_keymap(
 )
 
 -- clipboard
-vim.api.nvim_set_keymap(
-	"v",
-	"<leader>,",
-	'"*y',
-	{ noremap = true }
-)
+vim.api.nvim_set_keymap("v", "<leader>,", '"*y', { noremap = true })
 
 -- Emmet
-vim.g.user_emmet_expandabbr_key = '<C-y>'
+vim.g.user_emmet_expandabbr_key = "<C-y>"
 -- Term
-vim.api.nvim_set_keymap('n', '<leader>tm', ':split | term <CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>tm", ":split | term <CR>", { noremap = true, silent = true })

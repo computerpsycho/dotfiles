@@ -3,8 +3,7 @@
 # Copy this to ~/.config/sway/config and edit it to your liking.
 #
 # Read `man 5 sway` for a complete reference.
-
-font pango:Iosevka Nerd Font 18
+font pango:Iosevka Nerd Font 16
 
 ### Variables
 #
@@ -25,7 +24,7 @@ set $menu wofi --show run
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Downloads/Pictures/bg02.jpg fill
+output * bg ~/Downloads/Pictures/bg01.png fill
 #
 # Example configuration:
 #
@@ -73,6 +72,8 @@ bindsym XF86Search exec ~/.config/sway/toggle-audio-output
 bindsym $mod+Shift+s exec pavucontrol
 for_window [app_id="pavucontrol"] floating enable
 
+
+hide_edge_borders smart
 ### Key bindings
 #
 # Basics:
