@@ -30,4 +30,8 @@ return {
 			})
 		end,
 	},
+	{
+		"goolord/alpha-nvim",
+		config = function() end,
+	},
 }

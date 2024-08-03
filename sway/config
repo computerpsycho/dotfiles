@@ -27,7 +27,7 @@ set $menu wofi --show run
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Downloads/Pictures/bg01.png fill
+output * bg ~/dotfiles/images/bg01.png fill
 #
 # Example configuration:
 #
@@ -66,17 +66,20 @@ input * {
     xkb_layout gb
 }
 
+# volume control
 bindsym XF86AudioLowerVolume exec pactl -- set-sink-mute @DEFAULT_SINK@ 0 && pactl -- set-sink-volume @DEFAULT_SINK@ -10%
 bindsym XF86AudioRaiseVolume exec pactl -- set-sink-mute @DEFAULT_SINK@ 0 && pactl -- set-sink-volume @DEFAULT_SINK@ +10%
 bindsym XF86AudioMute exec pactl -- set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl -- set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86Search exec ~/.config/sway/toggle-audio-output
 
+# pavucontrol shortcut
 bindsym $mod+Shift+s exec pavucontrol
 for_window [app_id="pavucontrol"] floating enable
 
+# swappy shortcut
+bindsym $mod+Shift+t exec wayshot -s "$(slurp)"
 
-hide_edge_borders smart
 ### Key bindings
 #
 # Basics:

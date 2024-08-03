@@ -37,6 +37,8 @@ if [[ -n $pacman ]]; then
 		vlc
 		noto-fonts-emoji
 		ttf-iosevka-nerd
+        wl-clipboard
+        ripgrep
 	)
 
 	echo "--> Installing base packages"
@@ -138,10 +140,7 @@ if [[ -n $pacman ]]; then
 	mkdir -p ~/.config/foot && touch ~/.config/foot/foot.ini
 	mkdir -p ~/.config/fish && touch ~/.config/fish/config.fish
 	mkdir -p ~/.config/wofi && touch ~/.config/wofi/style.css
-	mkdir -p ~/Downloads/Pictures
-
-	echo "Downloading sample wallpaper"
-	wget -O ~/Downloads/Pictures/bg02.jpg "https://www.pixelstalk.net/wp-content/uploads/images1/Arch-hero-wallpaper-free.png"
+    mkdir -p ~/Downloads/Pictures
 
 	read -p "--> Change shell to fish? (y/n): " answer
 	if [[ $answer =~ ^[Yy]$ ]]; then
