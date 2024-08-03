@@ -5,6 +5,9 @@
 # Read `man 5 sway` for a complete reference.
 font pango:Iosevka Nerd Font 16
 
+# Gaps
+gaps inner 8
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
