@@ -140,7 +140,7 @@ if [[ -n $pacman ]]; then
 	mkdir -p ~/.config/foot && touch ~/.config/foot/foot.ini
 	mkdir -p ~/.config/fish && touch ~/.config/fish/config.fish
 	mkdir -p ~/.config/wofi && touch ~/.config/wofi/style.css
-    mkdir -p ~/Downloads/Pictures
+    mkdir -p ~/.config/swappy && touch ~/.config/swappy/config
 
 	read -p "--> Change shell to fish? (y/n): " answer
 	if [[ $answer =~ ^[Yy]$ ]]; then
