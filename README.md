@@ -1,11 +1,12 @@
-## install
-Run the `install` script after successfully installing Arch.\
-Make sure to pacstrap `git`, to clone this repo.
+## dotfiles
+dependencies:
+- sway
+- swaybg
+- swayidle
+- waybar
+- bemenu
+- grim, slurp and swappy
 
-After installing, run the `configure` script to copy over the configurations to `~/.config/*`\
-Reboot to ensure the configurations are loaded properly.
+## screenshot(s)
+![Home](./images/screenshot.png)
 
-## screenshots:
-![Home](./images/home.png)
-
-![Screenshot](./images/screenshot.png)

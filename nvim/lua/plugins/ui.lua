@@ -9,17 +9,6 @@ return {
 		end,
 	},
 	{
-		"xiyaowong/transparent.nvim",
-		config = function()
-			require("transparent").setup({
-				extra_groups = {
-					"NormalFloat",
-					"NvimTreeNormal",
-				},
-			})
-		end,
-	},
-	{
 		"nvim-lualine/lualine.nvim",
 		config = function()
 			require("lualine").setup({

@@ -115,4 +115,22 @@ return {
 			vim.g.mkdp_filetypes = { "markdown" }
 		end,
 	},
+	{
+		"mattn/emmet-vim",
+	},
+	{
+		"folke/todo-comments.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("todo-comments").setup()
+		end,
+	},
+	{
+		"numToStr/Comment.nvim",
+		config = function()
+			-- TODO: Configure Comment.nvim
+		end,
+	},
 }
